@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
 struct player{
@@ -17,7 +19,7 @@ player temp;
 
 string inputrank, inputranklvl, line, tempplayerrank, tempplayeruser, tempplayerranklvl;
 string permplayers[20], permplayersrank[20], permplayersranklvl[20];
-int location;
+int location, inputteam, jump;
 
 int main(){
     ifstream inFile("finaldata.csv");
@@ -30,9 +32,15 @@ int main(){
     // have to add checker that they put in something acceptable
     cin >> inputrank;
     cin >> inputranklvl;
+    srand(time(0));
+    jump = rand() % 15;
     int i;
+    for(int l = 0; l < jump*10; l++){
+            getline(inFile, line);
+        }
     
     while(getline(inFile, line) && i < 10){
+        
         //getting first username
         location = line.find(',');
         temp.user = line.substr(0,location);
@@ -76,6 +84,22 @@ int main(){
     for(int j = 5; j<10; j++){
         cout << perm[j].user <<" "<< perm[j].rank <<" "<< perm[j].lvl << endl;
     }
-    //test
+
+    cout << "which team do you claim to be yours? 1 or 2?" << endl;
+    cin >> inputteam;
+    if(inputteam == 1){
+        cout << "these the agents" << endl;
+        for(int k = 0; k<5; k++){
+            cout << perm[k].agent << endl;
+        }
+    } else if (inputteam == 2) {
+        cout << "these the agents" << endl;
+        for(int k = 5; k<10; k++){
+            cout << perm[k].agent << endl;
+        }
+    } else {
+        cout << "u break code >:( \nno more offers for u" << endl;
+        return 0;
+    }
 }
 
